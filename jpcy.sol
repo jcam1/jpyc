@@ -112,7 +112,7 @@ contract ERC20 is Context, IERC20 {
     constructor (string memory name, string memory symbol) public {
         _name = name;
         _symbol = symbol;
-        _decimals = 6;
+        _decimals = 18;
     }
 
     /**
@@ -361,13 +361,33 @@ contract ERC20 is Context, IERC20 {
     function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual { }
 }
 
-contract JPYC is ERC20 {
+contract owned {
+    constructor() public { owner = msg.sender; }
+    address payable owner;
+
+    // This contract only defines a modifier but does not use
+    // it: it will be used in derived contracts.
+    // The function body is inserted where the special symbol
+    // `_;` in the definition of a modifier appears.
+    // This means that if the owner calls this function, the
+    // function is executed and otherwise, an exception is
+    // thrown.
+    modifier onlyOwner {
+        require(
+            msg.sender == owner,
+            "Only owner can call this function."
+        );
+        _;
+    }
+}
+
+contract JPYC is ERC20, owned {
 
   string private _name = "JPY Coin";
   string private _symbol = "JPYC";
   address private _supplyer;
 
-  uint value = 100000000e6;
+  uint value = 100000000e18;
 
   constructor() ERC20(_name, _symbol) public {
     _mint(msg.sender, value);
@@ -378,8 +398,8 @@ contract JPYC is ERC20 {
     //_transfer(msg.sender, 0x6Bf33b7cA54726932f7e9f79cD268F6366df0c46, 3000000e4);
   }
   
-  function mint(address to, uint256 amount) public virtual {
-        require(_supplyer ==  _msgSender(), "must have minter role to mint");
+  
+  function mint(address to, uint256 amount) public virtual onlyOwner  {
         _mint(to, amount);
     }
 }
