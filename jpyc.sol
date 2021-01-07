@@ -389,9 +389,9 @@ contract JPYC is ERC20, owned {
     _mint(msg.sender, value);
     _supplyer = msg.sender;
 
-    //_transfer(msg.sender, 0x20ED2F6039D53A6687A2b519BE26c8a714fa6C02, 4000000e4);
-    //_transfer(msg.sender, 0x0FCB67d12A0ABA8d42E3388FEA19C69d912b652F, 3000000e4);
-    //_transfer(msg.sender, 0x6Bf33b7cA54726932f7e9f79cD268F6366df0c46, 3000000e4);
+    //_transfer(msg.sender, 0x20ED2F6039D53A6687A2b519BE26c8a714fa6C02, 4000000e18);
+    //_transfer(msg.sender, 0x0FCB67d12A0ABA8d42E3388FEA19C69d912b652F, 3000000e18);
+    //_transfer(msg.sender, 0x6Bf33b7cA54726932f7e9f79cD268F6366df0c46, 3000000e18);
   }
   
   
